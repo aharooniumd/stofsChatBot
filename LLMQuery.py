@@ -242,8 +242,10 @@ def main():
         print("Unknown function.")
 
 # Instantiate llama.cpp
+# n_ctx is for context window
+# n_gpu_layers = -1 (on mac runs the model on metal gpu)
 llm = Llama(
-    model_path="/Users/aryanharooni/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+    model_path="your/model/path",
     n_ctx=32768, n_gpu_layers=-1, n_threads=8, n_batch=4096
 )
 if __name__ == "__main__":
