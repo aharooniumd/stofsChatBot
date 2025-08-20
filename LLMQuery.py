@@ -243,7 +243,7 @@ def main():
 
 # Instantiate llama.cpp
 # n_ctx is for context window
-# n_gpu_layers = -1 (on mac runs the model on metal gpu)
+# n_gpu_layers = -1 offloads all transformers on to gpu (full accel., you can change this number if you want to run parts on cpu)
 llm = Llama(
     model_path="your/model/path",
     n_ctx=32768, n_gpu_layers=-1, n_threads=8, n_batch=4096
