@@ -7,3 +7,6 @@ https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF).
 
 If you want to see the data retrieval process, make sure you set quiet_missing argument to False when calling
 summarize_metric_by_date_lead.
+
+Use LLMQuery to see how function-calling works.
+Use LLMChat to have a chat with the model (memory and normal responses)
