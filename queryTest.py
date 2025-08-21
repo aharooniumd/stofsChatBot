@@ -4,7 +4,7 @@ import csv
 from pathlib import Path
 import pytest
 
-from query import get_metric_by_date_lead
+from query import _get_metric_by_date_lead
 
 
 HEADER = [
@@ -19,6 +19,9 @@ HEADER = [
     "VExp (%)",
     "nPts",
 ]
+
+S3_ROOT = "s3://noaa-gestofs-pds/_post_processing/_metrics"
+TEMPLATE = "{data_dir}/{date}/**/*.{station}.cwl.csv"
 
 
 def _write_csv(path: Path, leads: list[float]) -> None:
@@ -75,15 +78,15 @@ def _get_lead_column(df):
 
 def test_wildcard_model_prefix_single_day(tmp_path: Path):
     data_dir = _prepare_data(tmp_path)
-    df = get_metric_by_date_lead(
+    df = _get_metric_by_date_lead(
         start_date="2024-01-01",
         end_date="2024-01-01",
         lead_min=0,
         lead_max=6,
         metric="RMSD",
         stations=["8410140"],
-        data_dir=str(data_dir),
-        path_template="{data_dir}/{date}/*.{station}.cwl.csv",
+        data_dir=S3_ROOT,
+        path_template=TEMPLATE,
         date_fmt="%Y%m%d",
         quiet_missing=False,
     )
@@ -95,15 +98,15 @@ def test_wildcard_model_prefix_single_day(tmp_path: Path):
 
 def test_multi_day_date_interval(tmp_path: Path):
     data_dir = _prepare_data(tmp_path)
-    df = get_metric_by_date_lead(
+    df = _get_metric_by_date_lead(
         start_date="2024-01-01",
         end_date="2024-01-02",
         lead_min=0,
         lead_max=12,
         metric="RMSD",
         stations=["8410140"],
-        data_dir=str(data_dir),
-        path_template="{data_dir}/{date}/*.{station}.cwl.csv",
+        data_dir=S3_ROOT,
+        path_template=TEMPLATE,
         date_fmt="%Y%m%d",
         quiet_missing=False,
     )
@@ -115,15 +118,15 @@ def test_multi_day_date_interval(tmp_path: Path):
 
 def test_leadtime_filter_boundaries(tmp_path: Path):
     data_dir = _prepare_data(tmp_path)
-    df = get_metric_by_date_lead(
+    df = _get_metric_by_date_lead(
         start_date="2024-01-01",
         end_date="2024-01-02",
         lead_min=6,
         lead_max=6,
         metric="RMSD",
         stations=["8410140"],
-        data_dir=str(data_dir),
-        path_template="{data_dir}/{date}/*.{station}.cwl.csv",
+        data_dir=S3_ROOT,
+        path_template=TEMPLATE,
         date_fmt="%Y%m%d",
         quiet_missing=False,
     )
@@ -136,15 +139,15 @@ def test_leadtime_filter_boundaries(tmp_path: Path):
 @pytest.mark.parametrize("metric", ["RMSD", "Bias", "RVal", "Skil", "VExp"])
 def test_each_metric_once(tmp_path: Path, metric: str):
     data_dir = _prepare_data(tmp_path)
-    df = get_metric_by_date_lead(
+    df = _get_metric_by_date_lead(
         start_date="2024-01-01",
         end_date="2024-01-02",
         lead_min=0,
         lead_max=12,
         metric=metric,
         stations=["8410140"],
-        data_dir=str(data_dir),
-        path_template="{data_dir}/{date}/*.{station}.cwl.csv",
+        data_dir=S3_ROOT,
+        path_template=TEMPLATE,
         date_fmt="%Y%m%d",
         quiet_missing=False,
     )

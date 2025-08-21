@@ -5,8 +5,8 @@ from query import summarize_metric_by_date_lead, get_available_stations
 
 
 # Defaults for runtime
-DEFAULT_DATA_DIR = "metrics_data"
-DEFAULT_PATH_TEMPLATE = "{data_dir}/{date}/*.{station}.cwl.csv"
+DEFAULT_DATA_DIR = "s3://noaa-gestofs-pds/_post_processing/_metrics"
+DEFAULT_PATH_TEMPLATE = "{data_dir}/{date}/**/*.{station}.cwl.csv"
 DEFAULT_DATE_FMT = "%Y%m%d"
 DEFAULT_LEAD_MIN = 0
 DEFAULT_LEAD_MAX = 150
@@ -215,11 +215,13 @@ def main():
 
     if fn == "summarize_metric_by_date_lead":
         # If stations not specified, populate with all available stations for the date(s)
-        if len(args.get("stations")) == 0 or args.get("stations") is None:
+        if not args.get("stations"):
             args["stations"] = get_all_available_stations(
                 start_date=args["start_date"],
                 end_date=args["end_date"]
             )
+
+        print(f"Stations not specified, using all available stations: {args['stations']}")
 
         result = summarize_metric_by_date_lead(
             start_date=args["start_date"],
@@ -245,7 +247,7 @@ def main():
 # n_ctx is for context window
 # n_gpu_layers = -1 offloads all transformers on to gpu (full accel., you can change this number if you want to run parts on cpu)
 llm = Llama(
-    model_path="your/model/path",
+    model_path="/Users/aryanharooni/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
     n_ctx=32768, n_gpu_layers=-1, n_threads=8, n_batch=4096
 )
 if __name__ == "__main__":

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20201128" />
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20201210" />
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20201213" />
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20201228" />
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20210221" />
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20230319" />
+      <excludeFolder url="file://$MODULE_DIR$/metrics_data/20231210" />
+    </content>
     <orderEntry type="jdk" jdkName="stofschatbot" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
