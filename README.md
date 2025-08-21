@@ -10,3 +10,6 @@ summarize_metric_by_date_lead.
 
 Use LLMQuery to see how function-calling works.
 Use LLMChat to have a chat with the model (memory and normal responses)
+
+You don't have to run metrics.py to make the chatbot work. but if you want to have
+the files locally you can run this script 
