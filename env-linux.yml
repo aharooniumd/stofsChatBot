@@ -1,0 +1,19 @@
+name: stofschatbot
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - cxx-compiler
+  - numpy
+  - pandas
+  - pytorch
+  - torchvision
+  - torchaudio
+  - transformers
+  - accelerate
+  - s3fs
+  - pip
+  - pip:
+    - diskcache
+    - llama-cpp-python
